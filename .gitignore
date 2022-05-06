@@ -1,0 +1,6 @@
+.vscode
+# Folders created by CMake (Windows install of SFML)
+assets
+build
+cmake_modules
+CMakeLists.txt
