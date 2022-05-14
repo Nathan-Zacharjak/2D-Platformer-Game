@@ -34,10 +34,10 @@ public:
     void fall(float theta){
         if (body->getPosition().y<500){
             movement.y += gravity*theta;
-            std::cout<<body->getPosition().y<<std::endl;
+            //std::cout<<body->getPosition().y<<std::endl;
         }else if (body->getPosition().y>500) //set players y position manually as we have no collision/ground
         {
-            std::cout<<body->getPosition().y<<std::endl;
+            //std::cout<<body->getPosition().y<<std::endl;
             body->setPosition(body->getPosition().x,500);
             movement.y = 0.0f; //stopping residual movements in movement.y
             canjump = true;
