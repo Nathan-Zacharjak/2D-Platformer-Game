@@ -1,14 +1,15 @@
 #include <SFML/Graphics.hpp>
 #include "Player.h"
 #include <string>
+#include <iostream>
 
 //Global Game Parameters
     int GW_X = 1000;
     int GW_Y = 600;
     std::string GW_NAME = "I Can Jump!!!";
-    int PLAYER_SIZE = 25;
+    int PLAYER_SIZE = 26;
     int PLAYER_X = GW_X/2;
-    int PLAYER_Y = GW_Y*0.9;
+    int PLAYER_Y = 500;
     float PLAYER_SPEED = 200.0f;
     float PLAYER_JUMP_HEIGHT = 200;
 
@@ -33,7 +34,7 @@ int main(){
             
         }
 
-
+       // std::cout<<theta<<std::endl;
         p1.update(theta);
 
         window.clear();

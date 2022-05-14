@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include <math.h>
+#include <iostream>
 
 class Player
 {
@@ -22,7 +23,8 @@ public:
         this->speed = speed;
         this->jumpheight = jumpheight;
         this->canjump = true;
-        this->gravity = 981.0f;
+        this->faceright = true;
+        this->gravity = 981.0f;//9.81 m/s^2 or 981 pixels/s^2
     }
     //pass as pointer so we make modifications to the actual window and not a copy of the window
     void draw(sf::RenderWindow* win){
@@ -32,19 +34,22 @@ public:
     void fall(float theta){
         if (body->getPosition().y<500){
             movement.y += gravity*theta;
+            std::cout<<body->getPosition().y<<std::endl;
         }else if (body->getPosition().y>500) //set players y position manually as we have no collision/ground
         {
+            std::cout<<body->getPosition().y<<std::endl;
             body->setPosition(body->getPosition().x,500);
+            movement.y = 0.0f; //stopping residual movements in movement.y
             canjump = true;
         }
         
     }
     void update(float theta){
         
-        movement.x = 0.0f; //set to  movement.x *= 0.0f for no deceleration 
+        movement.x = 0.0f;
+         //set to  movement.x *= 0.8f for deceleration 
         //move left -x
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
-            
             movement.x -= speed;
             faceright = true;
         }
@@ -56,7 +61,7 @@ public:
         //move up -y *note SMFL y axis is reversed.
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && canjump){
             canjump = false;
-            movement.y = -sqrtf(2.0f*gravity*jumpheight);//potential energy of gravity.
+            movement.y = -sqrtf(2.0f*gravity*jumpheight);//potential energy of gravity eqn.
         }
 
         //moves down unless your on the ground, ground currently set to starting y position
