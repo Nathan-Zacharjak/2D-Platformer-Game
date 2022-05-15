@@ -52,7 +52,7 @@ int main(){
         Player1->update(theta, time, errormargin);
         //p1.update(theta);
         errormargin = abs(abs(Player1->getcollision()->getposition().y - ground->getcollider()->getposition().y) - abs(Player1->getcollision()->gethalfsize().y + ground->getcollider()->gethalfsize().y));
-        std::cout<<errormargin<<std::endl;
+        //std::cout<<errormargin<<std::endl;
         direction->x = 0;
         direction->y = 0;
         if( ground->getcollider()->checkcollision(Player1->getcollision(),direction,1.0f)){
