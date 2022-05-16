@@ -14,9 +14,8 @@ class Enemy: public Character{
         bool _IsDead;
     public:
         Enemy(int size, int x, int y, int health, float speed, sf::Color colour);   
-        void spawn(int x, int y);        
-        void draw(sf::RenderWindow* win);
-        bool IsDead(int target_x, int target_y);
+        void spawn(Vector2f position);        
+        bool IsDead();
 };
 
 #endif
