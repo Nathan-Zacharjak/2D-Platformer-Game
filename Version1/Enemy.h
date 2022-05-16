@@ -12,10 +12,13 @@ class Enemy: public Character{
     private:
         Vector2f movement;
         bool _IsDead;
+        int _damage;
     public:
-        Enemy(int size, int x, int y, int health, float speed, sf::Color colour);   
+        Enemy(int size, int x, int y, int health, float speed, sf::Color colour, int damage);   
         void spawn(Vector2f position);        
+        void Update();
         bool IsDead();
+        int GetDamage();
 };
 
 #endif
