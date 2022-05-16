@@ -7,6 +7,7 @@ Character::Character(int size, int x, int y, int health, float speed, sf::Color 
     this->body->setFillColor(colour);
     this->body->setOrigin(size/2,size/2);
     this->speed = speed;
+    this->health = health;
 }
 //abstract classes destructor
 Character::~Character(){ 
@@ -17,6 +18,8 @@ Character::~Character(){
 void Character::sethealth(int health){
     this->health = health;
 }
+
+//gethealth, to be used to show current character health
 int Character::gethealth(){
     return this->health;
 }
@@ -42,17 +45,18 @@ void Character::draw(sf::RenderWindow* win){
 sf::Vector2f Character::getbodyPosition(){
     return body->getPosition();
 }
-
 void Character::setbodyposition(sf::Vector2f position){
     body->setPosition(position.x,position.y);
 }
-
 void Character::MoveBody(sf::Vector2f movement, float theta){
     body->move(movement*theta);
 }
 
+//a collison function to check if objects have collided with character
 Collision* Character::getcollision(){
     Collision* bodycolision = new Collision(this->body);
     return bodycolision;//we must copy this not pass the address, as it won't be accesssible and cause segmentation fault
 }
 
+//passes a direction vector, used for player, not needed in character
+void Character::onCollision(sf::Vector2f* direction){};

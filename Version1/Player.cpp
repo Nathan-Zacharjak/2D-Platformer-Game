@@ -1,42 +1,35 @@
 #include "Player.h"
 
-Player::Player(int size, int x, int y, int health, float speed, sf::Color colour, float jumpheight) :Character( size,  x,  y,  health,  speed,  colour){
+//constructor
+Player::Player(int size, int x, int y, int health, float speed, sf::Color colour, float jumpheight, Gun* aGun) :Character( size,  x,  y,  health,  speed,  colour){
     this->jumpheight = jumpheight;
     this->canjump = true;
     this->faceright = true;
     this->gravity = 981.0f;//9.81 m/s^2 or 981 pixels/s^2
-    this->smallgun = new Gun(1,250, 5, 200);
+    this->smallgun = aGun;//pass gun from main game, this will allow character selection of gun from mainscreen
     this->shootdelayer = 0.0f; //stops continous bullets
 }
 
-
-void Player::fall(float theta, float errormargin){//should be replaces with a ground collide!!!
-    //if (getbodyPosition().y<500){
+//fall which moves the player if the error margin between the player and an object below is greater then 1.5 pixels
+// this is to stop bouncing from continout collision due to gravity, needed for platforms
+void Player::fall(float theta, float errormargin){
     if (errormargin > 1.5){
-        movement.y += gravity*theta;
-    }
-    //     //std::cout<<getbodyPosition().y<<std::endl;
-    // }else if (getbodyPosition().y>500) //set players y position manually as we have no collision/ground
-    // {
-    //     //std::cout<<getbodyPosition().y<<std::endl;
-    //     //setbodyposition(sf::Vector2f(getbodyPosition().x,500));
-    //    // movement.y = 0.0f; //stopping residual movements in movement.y
-    //     canjump = true;
-    // }
-    
+        movement.y += gravity*theta; //g*t^2
+    }    
 }
-
+//destructor
 Player::~Player(){
-
+    delete smallgun;
 }
-
+//draw player as per the character draw function but redelacre draw to include drawgun
 void Player::draw(sf::RenderWindow* win){
     Character::draw(win);
     smallgun->drawgun(win);
 
 }
-
+//update player movement
 void Player::update(float theta, float time, float errormargin){
+    // a delay timer so bullet stream isn't super fast
     float delayshot = time - shootdelayer;
     movement.x = 0.0f;
     bulletmovement.x = 0.0f;
@@ -63,8 +56,7 @@ void Player::update(float theta, float time, float errormargin){
         //std::cout<<"q";
     }       
         
-    
-    
+    //update gun
     smallgun->update(theta);
 
     //moves down unless your on the ground, ground currently set to starting y position
@@ -74,6 +66,7 @@ void Player::update(float theta, float time, float errormargin){
     MoveBody(movement,theta);
 }
 
+//return direction of of collison and reset can jump if collision is with an object below;
 void Player::onCollision(sf::Vector2f* Direction){
     if (Direction->x > 0 || Direction->x < 0)
     {

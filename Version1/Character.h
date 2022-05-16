@@ -23,7 +23,7 @@ public:
     void setbodyposition(sf::Vector2f);
     void MoveBody(sf::Vector2f , float );
     virtual void update(float, float, float) = 0;
-    virtual void onCollision(sf::Vector2f*) = 0;
+    virtual void onCollision(sf::Vector2f*);
     virtual ~Character();
 };
 

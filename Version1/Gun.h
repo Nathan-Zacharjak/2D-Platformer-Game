@@ -2,6 +2,7 @@
 #define GUN_DEF
 
 #include "Bullet.h"
+#include "Collision.h"
 #include <SFML/Graphics.hpp>
 
 class Gun
@@ -17,6 +18,7 @@ public:
     void shoot(sf::Vector2f, bool);
     void update(float);
     void drawgun(sf::RenderWindow*);
+    Bullet* getammo();
     ~Gun();
 };
 

@@ -18,7 +18,7 @@ private:
     float gravity;
     float shootdelayer;
 public:
-    Player(int, int, int, int, float, sf::Color, float);
+    Player(int, int, int, int, float, sf::Color, float, Gun*);
     void update(float,float, float );
     void fall(float, float);
     void draw(sf::RenderWindow*);
