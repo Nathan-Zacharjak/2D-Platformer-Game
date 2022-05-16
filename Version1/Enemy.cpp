@@ -1,7 +1,7 @@
-#include "Enemy.h"
+#include "Enemy.h" 
 
-Enemy::Enemy(){
-    Enemy::IsDead = false;
+Enemy::Enemy(int size, int x, int y, int health, float speed, sf::Color colour){
+    this->_IsDead = false;
 };
         
 void Enemy::spawn(Vector2f position){

@@ -11,10 +11,12 @@ using namespace sf;
 class Enemy: public Character{
     private:
         Vector2f movement;
-        bool IsDead;
+        bool _IsDead;
     public:
-        Enemy();   
+        Enemy(int size, int x, int y, int health, float speed, sf::Color colour);   
         void spawn(int x, int y);        
         void draw(sf::RenderWindow* win);
         bool IsDead(int target_x, int target_y);
 };
+
+#endif
