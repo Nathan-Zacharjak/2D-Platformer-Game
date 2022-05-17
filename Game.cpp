@@ -16,7 +16,7 @@ Game::Game(){
         enemy[i] = new Enemy(Global.ENEMY_SIZE,Global.PLAYER_X,Global.ENEMY_X,Global.ENEMY_Y, Global.ENEMY_SPEED, sf::Color::Red, Global.ENEMY_HEALTH);
     }
     //loading font from file and formattings its size
-    font.loadFromFile("../arial.ttf");
+    font.loadFromFile("arial.ttf");
     text.setCharacterSize(30);
     text.setFillColor(sf::Color::White);
     text.setFont(font);
