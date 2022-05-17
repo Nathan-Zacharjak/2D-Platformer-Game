@@ -1,5 +1,5 @@
 //complie with this
-g++ Collision.cpp Platform.cpp  Bullet.cpp Gun.cpp Character.cpp Player.cpp  main.cpp -lsfml-graphics -lsfml-system -lsfml-window
+g++ Collision.cpp Platform.cpp  Bullet.cpp Gun.cpp Character.cpp Player.cpp Enemy.cpp Game.cpp  main.cpp -lsfml-graphics -lsfml-system -lsfml-window
 
 //Controls
 w = jump
