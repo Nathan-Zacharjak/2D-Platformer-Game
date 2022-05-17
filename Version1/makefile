@@ -3,3 +3,5 @@ compile: Collision.cpp Platform.cpp  Bullet.cpp Gun.cpp Character.cpp Player.cpp
 	g++ -o Driver Collision.cpp Platform.cpp  Bullet.cpp Gun.cpp Character.cpp Player.cpp Enemy.cpp Game.cpp  main1.cpp -lsfml-graphics -lsfml-system -lsfml-window
 run: Driver
 	./Driver
+gitplzstop:
+	./
