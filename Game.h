@@ -32,9 +32,11 @@ private:
     float theta;
     float time;
     sf::Clock clock;
+    bool gameActive;
 public:
     Game();
     void run();
+    void runMainGame();
     ~Game();
 };
 

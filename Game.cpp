@@ -16,7 +16,7 @@ Game::Game(){
         enemy[i] = new Enemy(Global.ENEMY_SIZE,Global.PLAYER_X,Global.ENEMY_X,Global.ENEMY_Y, Global.ENEMY_SPEED, sf::Color::Red, Global.ENEMY_HEALTH);
     }
     //loading font from file and formattings its size
-    font.loadFromFile("arial.ttf");
+    font.loadFromFile("../arial.ttf");
     text.setCharacterSize(30);
     text.setFillColor(sf::Color::White);
     text.setFont(font);
@@ -34,10 +34,14 @@ Game::Game(){
     //theta is a change in time and time is cumulative theta;
     theta = 0.0f;
     time = 0.0f;
+    // Flag for when the main menu is interacted with and the game should start
+    gameActive = false;
 }
 
 void Game::run(){
     while (window->isOpen()){
+    //Clear window
+    window->clear();
     //game time to be used as reference for all movements??
     time = time + theta;
     theta = clock.restart().asSeconds();
@@ -51,6 +55,25 @@ void Game::run(){
         }
         
     }
+
+    // Start the game when 'Enter' is pressed
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)){
+        gameActive = true;
+    }
+
+    // If the enter key has been pressed, start the game
+    if (gameActive){
+        this->runMainGame();
+    }
+    
+
+    //display
+    window->display();
+    }
+}
+
+// Starts the game when the main menu is interacted with
+void Game::runMainGame(){
     //Update using the character class function, same inputs but different behaviour
     //example of polymorphism;
     Player1->update(theta, time, errormargin);
@@ -99,8 +122,6 @@ void Game::run(){
     if (platform3->getcollider()->checkcollision(Player1->getcollision(),direction,1.0f)){
         Player1->onCollision(direction);
     }
-    //Clear window
-    window->clear();
     //format text to always be in the centre of the screen and draw
     //Perhaps group this in a function
     text.setString("Score: " + std::to_string(score) + "    " + "Health: " + std::to_string(Player1->gethealth()));
@@ -117,11 +138,8 @@ void Game::run(){
     platform2->drawplatform(window);
     platform3->drawplatform(window);
     ground->drawplatform(window);
-    //display
-    window->display();
-    }
-
 }
+
 //destructor
 Game::~Game(){
     delete grey;
