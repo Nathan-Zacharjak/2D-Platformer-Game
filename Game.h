@@ -37,6 +37,7 @@ public:
     Game();
     void run();
     void runMainGame();
+    void runMainMenu();
     ~Game();
 };
 

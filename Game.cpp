@@ -64,12 +64,22 @@ void Game::run(){
     // If the enter key has been pressed, start the game
     if (gameActive){
         this->runMainGame();
+    }else{
+        this->runMainMenu();
     }
     
-
     //display
     window->display();
     }
+}
+
+void Game::runMainMenu(){
+    //format text to always be in the centre of the screen and draw
+    //Perhaps group this in a function
+    text.setString("Welcome to the game " + Global.GW_NAME + "!\nPress 'Enter' to Start");
+    text.setOrigin(sf::Vector2f(text.getLocalBounds().width/2.0f,0));
+    text.setPosition(sf::Vector2f(Global.GW_X/2,Global.GW_Y/2));
+    window->draw(text);
 }
 
 // Starts the game when the main menu is interacted with

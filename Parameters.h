@@ -10,7 +10,7 @@ public:
     //game window
     const int GW_X = 1000;
     const int GW_Y = 600;
-    const std::string GW_NAME = "2D Shooter!";
+    const std::string GW_NAME = "2D Shooter";
     //player parameters
     const int PLAYER_SIZE = 30;
     const int PLAYER_X = GW_X/2;
