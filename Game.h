@@ -21,6 +21,7 @@ private:
     Enemy* enemy[2];//should not be static 2
     sf::Font font;
     sf::Text text;
+    sf::Text beginGameButtonText;
     Platform* ground;
     Platform* platform1;
     Platform* platform2;
@@ -36,6 +37,7 @@ private:
     float time;
     sf::Clock clock;
     bool gameActive;
+    sf::Vector2i mousePosition;
 public:
     Game();
     void run();

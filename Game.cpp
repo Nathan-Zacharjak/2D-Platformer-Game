@@ -20,6 +20,9 @@ Game::Game(){
     text.setCharacterSize(30);
     text.setFillColor(sf::Color::White);
     text.setFont(font);
+    beginGameButtonText.setCharacterSize(30);
+    beginGameButtonText.setFillColor(sf::Color::Green);
+    beginGameButtonText.setFont(font);
     //declaring all platform objects needed
     ground = new Platform(*grey,sf::Vector2f((int)1000,(int)100),sf::Vector2f(500,563));
     platform1 = new Platform(*grey,sf::Vector2f((int)200,(int)4),sf::Vector2f(500,200));
@@ -48,6 +51,8 @@ void Game::run(){
     //game time to be used as reference for all movements??
     time = time + theta;
     theta = clock.restart().asSeconds();
+    //update mouse position
+    mousePosition = sf::Mouse::getPosition(*window);
     //close event
     sf::Event clsevent;
     while (window->pollEvent(clsevent))
@@ -56,15 +61,8 @@ void Game::run(){
         {
             window->close();
         }
-        
     }
 
-    // Start the game when 'Enter' is pressed
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)){
-        gameActive = true;
-    }
-
-    // If the enter key has been pressed, start the game
     if (gameActive){
         this->runMainGame();
     }else{
@@ -79,10 +77,21 @@ void Game::run(){
 void Game::runMainMenu(){
     //format text to always be in the centre of the screen and draw
     //Perhaps group this in a function
-    text.setString("Welcome to the game " + Global.GW_NAME + "!\nPress 'Enter' to Start");
+    text.setString("Welcome to the \"" + Global.GW_NAME + "\" game!");
     text.setOrigin(sf::Vector2f(text.getLocalBounds().width/2.0f,0));
-    text.setPosition(sf::Vector2f(Global.GW_X/2,Global.GW_Y/2));
+    text.setPosition(sf::Vector2f(Global.GW_X/2,Global.GW_Y/2 - 100));
+
+    beginGameButtonText.setString("Begin Game");
+    beginGameButtonText.setOrigin(sf::Vector2f(beginGameButtonText.getLocalBounds().width/2.0f,0));
+    beginGameButtonText.setPosition(sf::Vector2f(Global.GW_X/2,Global.GW_Y/2));
+
     window->draw(text);
+    window->draw(beginGameButtonText);
+    
+    // Start the game when the 'Start Game' text is left-clicked
+    if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && beginGameButtonText.getGlobalBounds().contains(mousePosition.x, mousePosition.y)){
+        gameActive = true;
+    }
 }
 
 // Starts the game when the main menu is interacted with
