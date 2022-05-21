@@ -25,6 +25,9 @@ private:
     Platform* platform1;
     Platform* platform2;
     Platform* platform3;
+    Platform* leftWall;
+    Platform* rightWall;
+    Platform* ceiling;
     sf::Vector2f* direction;
     sf::Vector2f* direction2;
     float errormargin;

@@ -25,6 +25,9 @@ Game::Game(){
     platform1 = new Platform(*grey,sf::Vector2f((int)200,(int)4),sf::Vector2f(500,200));
     platform2 = new Platform(*grey,sf::Vector2f((int)200,(int)4),sf::Vector2f(750,350));
     platform3 = new Platform(*grey,sf::Vector2f((int)200,(int)4),sf::Vector2f(250,350));
+    leftWall = new Platform(*grey,sf::Vector2f((int)4,(int)1000),sf::Vector2f(1000,100));
+    rightWall = new Platform(*grey,sf::Vector2f((int)4,(int)1000),sf::Vector2f(0,100));
+    ceiling = new Platform(*grey,sf::Vector2f((int)1000,(int)75),sf::Vector2f(500,0));
     //declaring direction vectors needed to provide information about which direction the
     //collision occured at
     direction = new sf::Vector2f(0,0);
@@ -132,22 +135,34 @@ void Game::runMainGame(){
     if (platform3->getcollider()->checkcollision(Player1->getcollision(),direction,1.0f)){
         Player1->onCollision(direction);
     }
-    //format text to always be in the centre of the screen and draw
-    //Perhaps group this in a function
-    text.setString("Score: " + std::to_string(score) + "    " + "Health: " + std::to_string(Player1->gethealth()));
-    text.setOrigin(sf::Vector2f(text.getLocalBounds().width/2.0f,0));
-    text.setPosition(sf::Vector2f(Global.GW_X/2,0));
-    window->draw(text);
+    if (leftWall->getcollider()->checkcollision(Player1->getcollision(),direction,1.0f)){
+        Player1->onCollision(direction);
+    }
+    if (rightWall->getcollider()->checkcollision(Player1->getcollision(),direction,1.0f)){
+        Player1->onCollision(direction);
+    }
+    if (ceiling->getcollider()->checkcollision(Player1->getcollision(),direction,1.0f)){
+        Player1->onCollision(direction);
+    }
     //draw enemies
     for (int i = 0; i < Global.NUMBER_OF_ENEMIES; i++){
         enemy[i]->draw(window);
     }
     //draw player and platforms
     Player1->draw(window);//pass window address so it can be altered
+    ground->drawplatform(window);
     platform1->drawplatform(window);
     platform2->drawplatform(window);
     platform3->drawplatform(window);
-    ground->drawplatform(window);
+    leftWall->drawplatform(window);
+    rightWall->drawplatform(window);
+    ceiling->drawplatform(window);
+    //format text to always be in the centre of the screen and draw
+    //Perhaps group this in a function
+    text.setString("Score: " + std::to_string(score) + "    " + "Health: " + std::to_string(Player1->gethealth()));
+    text.setOrigin(sf::Vector2f(text.getLocalBounds().width/2.0f,0));
+    text.setPosition(sf::Vector2f(Global.GW_X/2,0));
+    window->draw(text);
 }
 
 //destructor
@@ -160,6 +175,9 @@ Game::~Game(){
     delete platform1;
     delete platform2;
     delete platform3;
+    delete leftWall;
+    delete rightWall;
+    delete ceiling;
     delete direction;
     delete direction2;
     delete window;
