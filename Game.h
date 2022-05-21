@@ -22,6 +22,7 @@ private:
     sf::Font font;
     sf::Text text;
     sf::Text beginGameButtonText;
+    sf::Text exitGameButtonText;
     Platform* ground;
     Platform* platform1;
     Platform* platform2;
@@ -36,13 +37,14 @@ private:
     float theta;
     float time;
     sf::Clock clock;
-    bool gameActive;
+    std::string gameScreen;
     sf::Vector2i mousePosition;
 public:
     Game();
     void run();
-    void runMainGame();
     void runMainMenu();
+    void runMainGame();
+    void runGameOver();
     ~Game();
 };
 

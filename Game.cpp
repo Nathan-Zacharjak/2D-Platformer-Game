@@ -23,6 +23,9 @@ Game::Game(){
     beginGameButtonText.setCharacterSize(30);
     beginGameButtonText.setFillColor(sf::Color::Green);
     beginGameButtonText.setFont(font);
+    exitGameButtonText.setCharacterSize(30);
+    exitGameButtonText.setFillColor(sf::Color::Green);
+    exitGameButtonText.setFont(font);
     //declaring all platform objects needed
     ground = new Platform(*grey,sf::Vector2f((int)1000,(int)100),sf::Vector2f(500,563));
     platform1 = new Platform(*grey,sf::Vector2f((int)200,(int)4),sf::Vector2f(500,200));
@@ -40,8 +43,9 @@ Game::Game(){
     //theta is a change in time and time is cumulative theta;
     theta = 0.0f;
     time = 0.0f;
-    // Flag for when the main menu is interacted with and the game should start
-    gameActive = false;
+    // Integer that controls what screen should be should such as main menu, main game or game over screen
+    // Defaults to game state 
+    gameScreen = "menu";
 }
 
 void Game::run(){
@@ -63,12 +67,15 @@ void Game::run(){
         }
     }
 
-    if (gameActive){
-        this->runMainGame();
-    }else{
+    // Controls what screen is shown
+    if (gameScreen == "menu"){
         this->runMainMenu();
+    }else if (gameScreen == "game"){
+        this->runMainGame();
+    }else if (gameScreen == "gameover"){
+        this->runGameOver();
     }
-    
+
     //display
     window->display();
     }
@@ -85,12 +92,21 @@ void Game::runMainMenu(){
     beginGameButtonText.setOrigin(sf::Vector2f(beginGameButtonText.getLocalBounds().width/2.0f,0));
     beginGameButtonText.setPosition(sf::Vector2f(Global.GW_X/2,Global.GW_Y/2));
 
+    exitGameButtonText.setString("Exit Game");
+    exitGameButtonText.setOrigin(sf::Vector2f(exitGameButtonText.getLocalBounds().width/2.0f,0));
+    exitGameButtonText.setPosition(sf::Vector2f(Global.GW_X/2,Global.GW_Y/2 + 50));
+
     window->draw(text);
     window->draw(beginGameButtonText);
+    window->draw(exitGameButtonText);
     
-    // Start the game when the 'Start Game' text is left-clicked
+    // Interaction with the 'Start Game' or 'Exit Game' text
     if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && beginGameButtonText.getGlobalBounds().contains(mousePosition.x, mousePosition.y)){
-        gameActive = true;
+        gameScreen = "game";
+    }
+
+    if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && exitGameButtonText.getGlobalBounds().contains(mousePosition.x, mousePosition.y)){
+        window->close();
     }
 }
 
@@ -119,10 +135,11 @@ void Game::runMainGame(){
                 Player1->sethealth(Player1->gethealth()-1);//should be minus enemy damage in future
             }
     }
-    //if players health drops below window, close game (BAD WAY TO DO THIS FIX)
-    if (Player1->gethealth() <= 0)
-    {
-        window->close();
+    //if players health drops below window, show the game over screen
+    if (Player1->gethealth() <= 0){
+        Player1->sethealth(Global.PLAYER_HEALTH);
+        Player1->setbodyposition(sf::Vector2f(Global.PLAYER_X, Global.PLAYER_Y));
+        gameScreen = "gameover";
     }
     //calculates error margin for the ground between player, used to turn gravity off and on to stop continious bouncing
     //implement for platforms, perhaps return abs intersection from collider class
@@ -172,6 +189,35 @@ void Game::runMainGame(){
     text.setOrigin(sf::Vector2f(text.getLocalBounds().width/2.0f,0));
     text.setPosition(sf::Vector2f(Global.GW_X/2,0));
     window->draw(text);
+}
+
+void Game::runGameOver(){
+    //format text to always be in the centre of the screen and draw
+    //Perhaps group this in a function
+    text.setString("Game Over!");
+    text.setOrigin(sf::Vector2f(text.getLocalBounds().width/2.0f,0));
+    text.setPosition(sf::Vector2f(Global.GW_X/2,Global.GW_Y/2 - 100));
+
+    beginGameButtonText.setString("Try Again");
+    beginGameButtonText.setOrigin(sf::Vector2f(beginGameButtonText.getLocalBounds().width/2.0f,0));
+    beginGameButtonText.setPosition(sf::Vector2f(Global.GW_X/2,Global.GW_Y/2));
+
+    exitGameButtonText.setString("Exit Game");
+    exitGameButtonText.setOrigin(sf::Vector2f(exitGameButtonText.getLocalBounds().width/2.0f,0));
+    exitGameButtonText.setPosition(sf::Vector2f(Global.GW_X/2,Global.GW_Y/2 + 50));
+
+    window->draw(text);
+    window->draw(beginGameButtonText);
+    window->draw(exitGameButtonText);
+    
+    // Interaction with the 'Start Game' or 'Exit Game' text
+    if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && beginGameButtonText.getGlobalBounds().contains(mousePosition.x, mousePosition.y)){
+        gameScreen = "game";
+    }
+
+    if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && exitGameButtonText.getGlobalBounds().contains(mousePosition.x, mousePosition.y)){
+        window->close();
+    }
 }
 
 //destructor
