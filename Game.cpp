@@ -137,8 +137,6 @@ void Game::runMainGame(){
     }
     //if players health drops below window, show the game over screen
     if (Player1->gethealth() <= 0){
-        Player1->sethealth(Global.PLAYER_HEALTH);
-        Player1->setbodyposition(sf::Vector2f(Global.PLAYER_X, Global.PLAYER_Y));
         gameScreen = "gameover";
     }
     //calculates error margin for the ground between player, used to turn gravity off and on to stop continious bouncing
@@ -210,11 +208,21 @@ void Game::runGameOver(){
     window->draw(beginGameButtonText);
     window->draw(exitGameButtonText);
     
-    // Interaction with the 'Start Game' or 'Exit Game' text
+    // Resetting the game when 'Try again' is pressed
     if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && beginGameButtonText.getGlobalBounds().contains(mousePosition.x, mousePosition.y)){
+        Player1->sethealth(Global.PLAYER_HEALTH);
+        Player1->setbodyposition(sf::Vector2f(Global.PLAYER_X, Global.PLAYER_Y));
+
+        //Removing all existing enemies, currently disconnect between global and private enemy array size
+        for (int i = 0; i < Global.NUMBER_OF_ENEMIES; i++)
+        {
+            enemy[i]->SetAlive(false);
+        }
+
         gameScreen = "game";
     }
 
+    // Closing the window when 'Exit Game' is pressed
     if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && exitGameButtonText.getGlobalBounds().contains(mousePosition.x, mousePosition.y)){
         window->close();
     }
