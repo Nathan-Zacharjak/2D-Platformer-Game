@@ -26,7 +26,6 @@ public:
     const int ENEMY_DAMAGE = 1;
     const int ENEMY_HEALTH = 3;
     const int NUMBER_OF_ENEMIES = 2;
-    const int NUMBER_OF_BULLETS = 20;
     //Extra
     Parameters(){};
     ~Parameters(){};

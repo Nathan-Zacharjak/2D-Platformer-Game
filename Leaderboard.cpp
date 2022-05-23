@@ -6,13 +6,13 @@
 using namespace sf;
 using namespace std;
 
-Leaderboard::Leaderboard(){
-    
+Leaderboard::Leaderboard(int highest_score){
+    highest_score = 0;
 };
 
 void Leaderboard::store(){
-    if (highest_score < g.score){
-        highest_score = g.score;
+    if (highest_score < Game.score){
+        highest_score = Game.score;
     }
 }
 

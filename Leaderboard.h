@@ -3,16 +3,18 @@
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include <random>
+#include <time.h>
+#include "Game.h"
 using namespace sf;
 
 class Leaderboard{
     private:
-        int* scores; //Stores the highest game scores
+        int highest_score;
     public:
-        Leaderboard();
-        int* get_scores();
-        void set_scores();
-        int get_highest_score();
+        Leaderboard(int);
+        void store();
+        void highestscore();
 };
 
 #endif
