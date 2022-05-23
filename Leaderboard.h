@@ -14,10 +14,9 @@ class Leaderboard{
         std::vector<int> scores; //Stores the highest game scores
         std::string line;
     public:
-        Leaderboard();
-        int* get_scores();
-        void set_scores();
-        int get_highest_score();
+        Leaderboard(int);
+        void store();
+        void highestscore();
 };
 
 #endif
