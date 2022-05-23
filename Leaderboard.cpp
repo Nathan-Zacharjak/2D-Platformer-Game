@@ -15,3 +15,11 @@ Leaderboard::Leaderboard(){
     file.close();
     }
 };
+
+std::vector<int> Leaderboard::get_scores(){
+
+}
+
+void Leaderboard::write_scores(){
+    
+}
