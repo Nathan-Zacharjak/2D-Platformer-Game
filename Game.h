@@ -18,7 +18,7 @@ private:
     int score;
     Gun* SmallGun; 
     Player* Player1; 
-    Enemy** enemy;//should not be static 2
+    Enemy** enemy
     sf::Font font;
     sf::Text text;
     sf::Text beginGameButtonText;
