@@ -7,12 +7,13 @@ using namespace sf;
 using namespace std;
 
 Leaderboard::Leaderboard(int highest_score){
+    Game g;
     highest_score = 0;
 };
 
 void Leaderboard::store(){
-    if (highest_score < Game.score){
-        highest_score = Game.score;
+    if (highest_score < g.score){
+        highest_score = g.score;
     }
 }
 
