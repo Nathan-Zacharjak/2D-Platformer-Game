@@ -6,9 +6,8 @@
 using namespace sf;
 using namespace std;
 
-Leaderboard::Leaderboard(int highest_score){
-    Game g;
-    highest_score = 0;
+Leaderboard::Leaderboard(){
+    
 };
 
 void Leaderboard::store(){

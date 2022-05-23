@@ -7,7 +7,7 @@ Game::Game(){
     score = 0;
     //a small gun, required parameters in global, also need to make 
     //a large bullet slow gun and perhaps make this faster
-    SmallGun = new Gun(1,250, 5, 20);
+    SmallGun = new Gun(1,250, 5, Global.NUMBER_OF_BULLETS);
     //player with player parameter
     Player1 = new Player(Global.PLAYER_SIZE,Global.PLAYER_X,Global.PLAYER_Y,Global.PLAYER_HEALTH, Global.PLAYER_SPEED, sf::Color::Magenta,Global. PLAYER_JUMP_HEIGHT,SmallGun);
     //declaring enemies, currently discconect between global and private enemy array size
@@ -119,7 +119,7 @@ void Game::runMainGame(){
         enemy[i]->update(theta, time, errormargin);
     }
     //bullet and enemy collision
-    for (int i = 0; i < 20; i++){
+    for (int i = 0; i < Global.NUMBER_OF_BULLETS; i++){
         for (int j = 0; j < Global.NUMBER_OF_ENEMIES; j++)
         {
             if( SmallGun->getammo()[i].getcollision()->checkcollision( enemy[j]->getcollision(),direction2,1.0f)){
@@ -212,13 +212,18 @@ void Game::runGameOver(){
     if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && beginGameButtonText.getGlobalBounds().contains(mousePosition.x, mousePosition.y)){
         Player1->sethealth(Global.PLAYER_HEALTH);
         Player1->setbodyposition(sf::Vector2f(Global.PLAYER_X, Global.PLAYER_Y));
+        score = 0;
 
         //Removing all existing enemies, currently disconnect between global and private enemy array size
-        for (int i = 0; i < Global.NUMBER_OF_ENEMIES; i++)
-        {
+        for (int i = 0; i < Global.NUMBER_OF_ENEMIES; i++){
             enemy[i]->SetAlive(false);
         }
 
+        Bullet* bullets = SmallGun->getammo();
+        for (int i = 0; i < Global.NUMBER_OF_BULLETS; i++){
+            bullets[i].stop();
+        }
+        
         gameScreen = "game";
     }
 
@@ -231,7 +236,6 @@ void Game::runGameOver(){
 //destructor
 Game::~Game(){
     delete grey;
-    delete SmallGun; 
     delete Player1; 
     delete[] *enemy;
     delete ground;
