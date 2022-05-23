@@ -1,29 +1,17 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include <random>
-#include <time.h>
+#include <vector>
+#include <string>
 #include "Leaderboard.h"
 using namespace sf;
 using namespace std;
 
 Leaderboard::Leaderboard(){
-    
+    file.open("leaderboard.txt",ios::in);
+    if(file.is_open()){                           
+        while (std::getline(file,line)){
+            scores.push_back(stoi(line));
+        }
+    file.close();
+    }
 };
-
-void Leaderboard::store(){
-    if (highest_score < g.score){
-        highest_score = g.score;
-    }
-}
-
-void Leaderboard::highestscore(){
-    FILE *fp = NULL;
-    fp = fopen("Highestscore.txt", "r");
-    if (fp == NULL){
-        fp = fopen("Highestscore", "w");
-    }
-    else{
-        fscanf(fp, "%10d", highest_score);
-    }
-    fclose(fp);
-}

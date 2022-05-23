@@ -3,11 +3,16 @@
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include <fstream>
+#include <string>
+#include <vector>
 using namespace sf;
 
 class Leaderboard{
     private:
-        int* scores; //Stores the highest game scores
+        std::fstream file;
+        std::vector<int> scores; //Stores the highest game scores
+        std::string line;
     public:
         Leaderboard();
         int* get_scores();
