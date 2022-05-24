@@ -10,7 +10,7 @@ public:
     //game window
     const int GW_X = 1000;
     const int GW_Y = 600;
-    const std::string GW_NAME = "2D Shooter";
+    const std::string GW_NAME = "2D Shooter!";
     //player parameters
     const int PLAYER_SIZE = 30;
     const int PLAYER_X = GW_X/2;
@@ -26,10 +26,10 @@ public:
     const int ENEMY_DAMAGE = 1;
     const int ENEMY_HEALTH = 3;
     const int NUMBER_OF_ENEMIES = 2;
-    const int NUMBER_OF_BULLETS = 20;
     //Extra
     Parameters(){};
     ~Parameters(){};
 };
 
 #endif
+

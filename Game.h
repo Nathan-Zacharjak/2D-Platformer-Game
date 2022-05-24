@@ -18,18 +18,13 @@ private:
     int score;
     Gun* SmallGun; 
     Player* Player1; 
-    Enemy** enemy
+    Enemy* enemy[2];//should not be static 2
     sf::Font font;
     sf::Text text;
-    sf::Text beginGameButtonText;
-    sf::Text exitGameButtonText;
     Platform* ground;
     Platform* platform1;
     Platform* platform2;
     Platform* platform3;
-    Platform* leftWall;
-    Platform* rightWall;
-    Platform* ceiling;
     sf::Vector2f* direction;
     sf::Vector2f* direction2;
     float errormargin;
@@ -37,14 +32,9 @@ private:
     float theta;
     float time;
     sf::Clock clock;
-    std::string gameScreen;
-    sf::Vector2i mousePosition;
 public:
     Game();
     void run();
-    void runMainMenu();
-    void runMainGame();
-    void runGameOver();
     ~Game();
 };
 
