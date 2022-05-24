@@ -20,6 +20,7 @@ private:
 public:
     Player(int, int, int, int, float, sf::Color, float, Gun*);
     void update(float,float, float );
+    void ChangeGun(Gun*);
     void fall(float, float);
     void draw(sf::RenderWindow*);
     void onCollision(sf::Vector2f*);

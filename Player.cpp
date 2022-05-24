@@ -81,3 +81,7 @@ void Player::onCollision(sf::Vector2f* Direction){
     
     
 }
+
+void Player::ChangeGun(Gun* aGun){
+    this->smallgun = aGun;
+}

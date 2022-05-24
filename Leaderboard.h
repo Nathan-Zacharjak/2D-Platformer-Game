@@ -16,7 +16,7 @@ class Leaderboard{
     public:
         Leaderboard();
         std::vector<int> get_scores();
-        void write_scores();
+        void write_scores(std::string Player, int Score);
 };
 
 #endif
