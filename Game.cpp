@@ -82,17 +82,12 @@ void Game::run(){
         }
         
     }
-    float delayer = 0.0;
-    float Endtime = 0.0;
+    
     // Controls what screen is shown
     if (gameScreen == "menu"){
         this->runMainMenu();
-        Endtime = time;
     }else if (gameScreen == "gun"){
-        delayer = time - Endtime;
-        if (delayer > 5.0){
         this->runGunMenu();
-        }
     }else if (gameScreen == "game"){
         this->runMainGame();
     }else if (gameScreen == "gameover"){
@@ -183,7 +178,7 @@ void Game::runGunMenu(){
 
     beginGameButtonText.setString("Machine Gun");
     beginGameButtonText.setOrigin(sf::Vector2f(beginGameButtonText.getLocalBounds().width/2.0f,0));
-    beginGameButtonText.setPosition(sf::Vector2f(Global.GW_X/2,Global.GW_Y/2));
+    beginGameButtonText.setPosition(sf::Vector2f(Global.GW_X/2,Global.GW_Y/2 - 50));
 
     exitGameButtonText.setString("Shot Gun");
     exitGameButtonText.setOrigin(sf::Vector2f(exitGameButtonText.getLocalBounds().width/2.0f,0));
