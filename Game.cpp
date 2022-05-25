@@ -18,7 +18,7 @@ Game::Game(){
         enemy[i] = new Enemy(Global.ENEMY_SIZE,Global.PLAYER_X,Global.ENEMY_X,Global.ENEMY_Y, Global.ENEMY_SPEED, sf::Color::Red, Global.ENEMY_HEALTH);
     }
     //loading font from file and formattings its size
-    font.loadFromFile("arial.ttf");
+    font.loadFromFile("../arial.ttf");
     text.setCharacterSize(30);
     text.setFillColor(sf::Color::White);
     text.setFont(font);
@@ -31,6 +31,9 @@ Game::Game(){
     playerText.setCharacterSize(30);
     playerText.setFillColor(sf::Color::White);
     playerText.setFont(font);
+    leaderboardScores.setCharacterSize(30);
+    leaderboardScores.setFillColor(sf::Color::White);
+    leaderboardScores.setFont(font);
     //declaring all platform objects needed
     ground = new Platform(*grey,sf::Vector2f((int)1000,(int)100),sf::Vector2f(500,563));
     platform1 = new Platform(*grey,sf::Vector2f((int)200,(int)4),sf::Vector2f(500,200));
@@ -160,7 +163,7 @@ void Game::runLeaderboardInput(){
 
     if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && exitGameButtonText.getGlobalBounds().contains(mousePosition.x, mousePosition.y)){
         gameScreen = "tryagain";
-        leaderboard.write_scores(playerText.getString(),score);
+        leaderboard.write_score(playerText.getString(),score);
     }
 
 
@@ -292,6 +295,10 @@ void Game::runGameOver(){
     text.setOrigin(sf::Vector2f(text.getLocalBounds().width/2.0f,0));
     text.setPosition(sf::Vector2f(Global.GW_X/2,Global.GW_Y/2 - 100));
 
+    leaderboardScores.setString("High Scores:\n\n" + leaderboard.get_scores());
+    leaderboardScores.setOrigin(sf::Vector2f(leaderboardScores.getLocalBounds().width/2.0f,0));
+    leaderboardScores.setPosition(sf::Vector2f(100,Global.GW_Y/2 - 100));
+
     beginGameButtonText.setString("Try Again");
     beginGameButtonText.setOrigin(sf::Vector2f(beginGameButtonText.getLocalBounds().width/2.0f,0));
     beginGameButtonText.setPosition(sf::Vector2f(Global.GW_X/2,Global.GW_Y/2));
@@ -301,6 +308,7 @@ void Game::runGameOver(){
     exitGameButtonText.setPosition(sf::Vector2f(Global.GW_X/2,Global.GW_Y/2 + 50));
 
     window->draw(text);
+    window->draw(leaderboardScores);
     window->draw(beginGameButtonText);
     window->draw(exitGameButtonText);
     

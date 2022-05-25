@@ -11,12 +11,14 @@ using namespace sf;
 class Leaderboard{
     private:
         std::fstream file;
-        std::vector<int> scores; //Stores the highest game scores
-        std::string line;
+        std::vector<std::string> scores;
+        std::string line;//The temp line of text being read from leaderboard.txt, used in reading the file
+        std::string formattedScores;
     public:
-        Leaderboard();
-        std::vector<int> get_scores();
-        void write_scores(std::string Player, int Score);
+        Leaderboard();//Reads the leaderboard.txt file and adds any existing scores to the leaderboard
+        std::string get_scores();//Returns all scores in the leaderboard as a formatted string for display
+        void write_score(std::string Player, int Score);//Adds a score to the leaderboard
+        ~Leaderboard();//On close the leaderboard is written to leaderboard.txt
 };
 
 #endif

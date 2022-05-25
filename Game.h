@@ -27,6 +27,7 @@ private:
     sf::Text text;
     sf::Text beginGameButtonText;
     sf::Text exitGameButtonText;
+    sf::Text leaderboardScores;
     sf::String playerInput;
     sf::Text playerText;
     Platform* ground;
