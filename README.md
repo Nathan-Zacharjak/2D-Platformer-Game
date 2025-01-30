@@ -1,4 +1,4 @@
-# Object Oriented 2D Platformer Game
+# 2D Platformer Game
 A platforming game made using CMake and a linux-based graphics engine in C++, made with 1 other student
 
 ## Complie with this
